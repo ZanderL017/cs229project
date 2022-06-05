@@ -8,24 +8,16 @@ def load_data(mode="every", log=False):
     in which case a dictionary with only that dataset is returned.
     """
     dsets = {}
-    if mode == "every":
-        dsets["read"] = pd.read_csv("data/READCopyProtein50.csv")
-        dsets["coad"] = pd.read_csv("data/COADCopyProtein50.csv")
-        dsets["gse"] = pd.read_csv("data/GSE62254CopyConvertedProtein.csv")
+    if mode == "read" or mode == "all":
+        dsets["read"] = clean_dataset(pd.read_csv("data/READCopyProtein50.csv"), "read", log)
+    if mode == "coad" or mode == "all":
+        dsets["coad"] = clean_dataset(pd.read_csv("data/COADCopyProtein50.csv"), "coad", log)
+    if mode == "gse" or mode == "all":
+        dsets["gse"] = clean_dataset(pd.read_csv("data/GSE62254CopyConvertedProtein.csv"), "gse", log)
+    if mode == "all":  
         dsets["all"] = pd.concat((dsets["read"], dsets["coad"], dsets["gse"]))
-    elif mode == "read":
-        dsets["read"] = pd.read_csv("data/READCopyProtein50.csv")
-    elif mode == "coad":
-        dsets["coad"] = pd.read_csv("data/COADCopyProtein50.csv")
-    elif mode == "gse":
-        dsets["gse"] = pd.read_csv("data/GSE62254CopyConvertedProtein.csv")
-    elif mode == "all":  
-        dsets["all"] = pd.concat((dsets["read"], dsets["coad"], dsets["gse"]))
-    else:
-        raise Exception("Invalid mode. Valid modes are read, coad, gse, all, every.")
-        
-    for dname in dsets:
-        dsets[dname] = clean_dataset(dsets[dname], dname, log)
+    if mode not in ["read", "coad", "gse", "all"]:
+        raise Exception("Invalid mode. Valid modes are read, coad, gse, all.")
 
     return dsets
 
