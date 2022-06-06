@@ -1,0 +1,29 @@
+name: tybalt-gpu
+dependencies:
+- python
+- keras-gpu
+- tensorflow-gpu
+- scikit-learn
+- pandas
+- numpy
+- statsmodels
+- numexpr
+- pyparsing
+- hdf5
+- six
+- matplotlib
+- seaborn
+- jupyter
+- ipykernel
+- ipywidgets
+- widgetsnbextension
+- nb_conda_kernels
+- anaconda::pydot
+- graphviz
+- python-graphviz
+- libiconv
+- openssl
+- pip
+- pip:
+  - keras-tqdm
+  - plotnine
